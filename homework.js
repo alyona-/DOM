@@ -5,20 +5,19 @@
 */
 
 
-    var link_1 = document.getElementsByClassName('popup-link')[0];
-    var link_2 = document.getElementsByClassName('popup-link')[1];
-    link_1.addEventListener("click",function (){_onMouseClick(this);},false);
-    link_2.addEventListener("click",function () {_onMouseClick(this);},false);
-
-
-function _onMouseClick(e) {
-    if(e.preventDefault) {
-        e.preventDefault();
-        openPopupFromLink(e);
-    }else { // вариант IE<9:
-        event.returnValue = false;
-        openPopupFromLink(e);
-    }
+var link = document.getElementsByClassName('popup-link');
+var linkArr = new Array();
+for(i=0; i<link.length; i++) {
+    linkArr[i] = link[i].addEventListener('click', function () {
+        if(this.preventDefault) {
+            this.preventDefault();
+            openPopupFromLink(this);
+        }
+        else{
+            event.returnValue = false;
+            openPopupFromLink(this);
+        }
+    }, false);
 }
 
 /**
@@ -28,16 +27,12 @@ function _onMouseClick(e) {
 */
 
 function openPopupFromLink(link) {
-    var title = link.getAttribute('data-title');
-    var message = link.getAttribute('data-message');
-    var href = link.getAttribute('href');
-    if(message.indexOf('%s')!=-1){
-        message = message.replace('%s' , href);
-    }
-    createPopup(title, message, href);
+     createPopup(
+        link.getAttribute('data-title'),
+        link.getAttribute('data-message').replace('%s' , link.getAttribute('href')),
+        link.getAttribute('href')
+    );
 }
-
-
 
 /**
 * Создаёт DOM-узел с сообщением
@@ -55,24 +50,28 @@ function createPopup(title, message, onOk) {
     var p = document.createElement('p');
     var text = document.createTextNode(title);
     var ptext = document.createTextNode(message);
-    var input_1 = document.createElement('input');
-    var input_2 = document.createElement('input');
+    var buton = new Array();
+    for(var i=0; i<2; i++){
+        buton[i] = document.createElement('input');
+        buton[i].type ='button';
+        buton[i].id = 'button_'+(i+1);
+        buton[i].className = 'buttons';
+        winda.appendChild(buton[i]);
+        if(i==0){
+            buton[i].value= 'Да';
+            buton[i] = buton[i].addEventListener("click",function () {
+                location.href = onOk;
+            },false);
+        }
+        else {
+            buton[i].value= 'Нет';
+            buton[i] = buton[i].addEventListener("click",function () {
+                fon.style.display = 'none';
+                winda.style.display = 'none';
+            }, false );
+        }
+    }
 
-    input_1.addEventListener("click",function () {
-    location.href = onOk;
-    },false);
-    input_2.addEventListener("click",function () {
-    fon.style.display = 'none';
-    winda.style.display = 'none';
-    },false);
-    input_1.type = 'button';
-    input_2.type = 'button';
-    input_1.className = 'buttons';
-    input_2.className = 'buttons';
-    input_1.id = 'button_1';
-    input_2.id = 'button_2';
-    input_1.value = 'Да';
-    input_2.value = 'Нет';
     winda.className = 'window';
     fon.className = 'fon';
     fon.style.display = 'block';
@@ -83,6 +82,4 @@ function createPopup(title, message, onOk) {
     p.appendChild(ptext);
     winda.appendChild(h4);
     winda.appendChild(p);
-    winda.appendChild(input_1);
-    winda.appendChild(input_2);
 }

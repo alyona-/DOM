@@ -1,3 +1,7 @@
+@font-face {
+    font-family: Catull BQ;
+    src: url(fonts/catull-r-regular.ttf) format("opentype");
+}
 body
 {
     margin: 0;
@@ -6,15 +10,17 @@ body
     width: 100%;
     min-width: 980px;
 }
-
 ul {
     list-style: none;
-    font-family: Catull BQ , "Times New Roman";
+    font-family: 'Catull BQ' , "Times New Roman";
     font-size: 30px;
 }
 li {
     float: left;
     margin-left: 100px;
+}
+li:first-child:first-letter {
+    color: red;
 }
 a {
     color: #000;
@@ -23,7 +29,7 @@ a {
 a:visited {
     color: #000;
 }
-/*Google*/
+
 .blue {
     color: blue;
 }
@@ -36,11 +42,9 @@ a:visited {
 .green {
     color: forestgreen;
 }
-/*Yandex*/
 a:first-letter {
     color: red;
 }
-/*Фон, когда вызываю окно*/
 .fon {
     display: none;
     position: absolute;
@@ -60,8 +64,6 @@ a:first-letter {
     background: -o-linear-gradient(to bottom, #4F2741, #FFF);
     background: -ms-linear-gradient(to bottom, #4F2741, #FFF);
 }
-
-/*Вызываемое окно*/
 .window {
     font-family: Arial;
     font-size: 13px;
@@ -80,7 +82,6 @@ a:first-letter {
     background: -moz-linear-gradient(to top, #CACACA, #FFF);
     background: -o-linear-gradient(to top, #CACACA, #FFF);
     background: -ms-linear-gradient(to top, #CACACA, #FFF);
-    /*Кроссбраузерный скругленные углы*/
     border-radius: 30px;
     -moz-border-radius: 30px;
     -webkit-border-radius: 30px;
@@ -98,7 +99,6 @@ a:first-letter {
     filter: progid: DXImageTransform.Microsoft.Shadow(color='#FFFD8C', Direction=50, Strength=6)
     filter: progid: DXImageTransform.Microsoft.Shadow(color='#FFFD8C', Direction=0, Strength=6);
 }
-/*Стиль для кнопок*/
 .buttons {
     position: absolute;
     width: 100px;

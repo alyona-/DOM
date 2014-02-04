@@ -7,15 +7,16 @@
 
 var link = document.getElementsByClassName('popup-link');
 var linkArr = new Array();
+
 for(i=0; i<link.length; i++) {
     linkArr[i] = link[i].addEventListener('click', function () {
-        if(this.preventDefault) {
-            this.preventDefault();
-            openPopupFromLink(this);
-        }
-        else{
-            event.returnValue = false;
-            openPopupFromLink(this);
+    if(this.preventDefault) {
+        this.preventDefault();
+        openPopupFromLink(this);
+    }
+    else{
+        event.returnValue = false;
+        openPopupFromLink(this);
         }
     }, false);
 }
@@ -27,10 +28,13 @@ for(i=0; i<link.length; i++) {
 */
 
 function openPopupFromLink(link) {
-     createPopup(
+    var href = link.getAttribute('href');
+    createPopup(
         link.getAttribute('data-title'),
         link.getAttribute('data-message').replace('%s' , link.getAttribute('href')),
-        link.getAttribute('href')
+        function onOk (){
+            location.href = href;
+        }
     );
 }
 
@@ -43,43 +47,15 @@ function openPopupFromLink(link) {
 */
 
 function createPopup(title, message, onOk) {
-    var fon = document.createElement('block');
     var parentEl = document.body;
     var winda = document.createElement('block');
-    var h4 = document.createElement('h4');
-    var p = document.createElement('p');
-    var text = document.createTextNode(title);
-    var ptext = document.createTextNode(message);
-    var buton = new Array();
-    for(var i=0; i<2; i++){
-        buton[i] = document.createElement('input');
-        buton[i].type ='button';
-        buton[i].id = 'button_'+(i+1);
-        buton[i].className = 'buttons';
-        winda.appendChild(buton[i]);
-        if(i==0){
-            buton[i].value= 'Да';
-            buton[i] = buton[i].addEventListener("click",function () {
-                location.href = onOk;
-            },false);
-        }
-        else {
-            buton[i].value= 'Нет';
-            buton[i] = buton[i].addEventListener("click",function () {
-                fon.style.display = 'none';
-                winda.style.display = 'none';
-            }, false );
-        }
-    }
-
-    winda.className = 'window';
-    fon.className = 'fon';
-    fon.style.display = 'block';
-    winda.style.display = 'block';
-    parentEl.appendChild(fon);
+    var  str ='<div class="fon"></div><div class="window"><h4>'+title+'</h4><p>'+message+'</p>' +
+                '<input type="button" value="Да" class="buttons" id="button_1">' +
+                '<input type="button" value="Нет" class="buttons" id="button_2"></div>';
     parentEl.appendChild(winda);
-    h4.appendChild(text);
-    p.appendChild(ptext);
-    winda.appendChild(h4);
-    winda.appendChild(p);
+    winda.innerHTML = str;
+    var input1 = document.getElementById('button_1').addEventListener('click',onOk, false);
+    var input2 = document.getElementById('button_2').addEventListener('click',function (){
+    parentEl.removeChild(winda);
+    }, false);
 }

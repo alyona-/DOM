@@ -46,7 +46,6 @@ a:first-letter {
     color: red;
 }
 .fon {
-    display: none;
     position: absolute;
     top: 0;
     left: 0;
@@ -68,7 +67,6 @@ a:first-letter {
     font-family: Arial;
     font-size: 13px;
     text-align: center;
-    display: none;
     position: absolute;
     margin: 0 auto;
     width: 350px;

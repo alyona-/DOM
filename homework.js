@@ -28,12 +28,11 @@ for(i=0; i<link.length; i++) {
 */
 
 function openPopupFromLink(link) {
-    var href = link.getAttribute('href');
     createPopup(
         link.getAttribute('data-title'),
         link.getAttribute('data-message').replace('%s' , link.getAttribute('href')),
         function onOk (){
-            location.href = href;
+            location.href = link.getAttribute('href');;
         }
     );
 }

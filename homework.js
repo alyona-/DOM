@@ -47,7 +47,7 @@ function openPopupFromLink(link) {
 
 function createPopup(title, message, onOk) {
     var parentEl = document.body;
-    var winda = document.createElement('block');
+    var winda = document.createElement('div');
     var  str ='<div class="fon"></div><div class="window"><h4>'+title+'</h4><p>'+message+'</p>' +
                 '<input type="button" value="Да" class="buttons" id="button_1">' +
                 '<input type="button" value="Нет" class="buttons" id="button_2"></div>';

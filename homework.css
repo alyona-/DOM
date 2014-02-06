@@ -10,8 +10,12 @@ body
     width: 100%;
     min-width: 980px;
 }
-ul {
+ul{
     list-style: none;
+    width: 400px;
+    height: 30px;
+    display: block;
+    float: left;
     font-family: 'Catull BQ' , "Times New Roman";
     font-size: 30px;
 }
@@ -23,27 +27,11 @@ li:first-child:first-letter {
     color: red;
 }
 a {
-    color: #000;
+    position: relative;
     text-decoration: none;
 }
 a:visited {
     color: #000;
-}
-
-.blue {
-    color: blue;
-}
-.red {
-    color: red;
-}
-.yellow {
-    color: yellow;
-}
-.green {
-    color: forestgreen;
-}
-a:first-letter {
-    color: red;
 }
 .fon {
     position: absolute;
@@ -131,4 +119,42 @@ a:first-letter {
 #button_2 {
     right: 20px;
     bottom: 30px;
+}
+#facebook {
+    background-color: blue;
+    color: #fff;
+    margin-left: 100px;
+    font-size: 30px;
+    top: 30px;
+}
+#mail {
+    text-align: center;
+    background-color: blue;
+    font-size: 30px;
+    color: #fff;
+    margin-left: 100px;
+    top: 30px;
+}
+.gold {
+    margin-left: 0px;
+    color: goldenrod;
+    font-weight: bold;
+}
+.white {
+    color: #fff;
+}
+.blue {
+    color: blue;
+}
+.red {
+    color: red;
+}
+.yellow {
+    color: yellow;
+}
+.green {
+    color: forestgreen;
+}
+a:first-letter {
+    color: red;
 }

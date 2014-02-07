@@ -10,27 +10,15 @@ window.onload  = function (){
 
 var list = document.querySelector('body');
 list.addEventListener('click', function(event) {
-    var link;
     var target = event.target;
-    if(target.tagName == 'A' && target.className == 'popup-link')  {
-        link = target; next();
-    } else  if(target.parentNode.tagName == 'A' && target.parentNode.className == 'popup-link')  {
-        link = target.parentNode;
-        next();
-    } else if(target.childNodes.tagName == 'A' && target.childNodes.className == 'popup-link') {
-        link = target.children[0];
-        next();
+    if(event.target.className == 'popup-link'){
+        event.returnValue = false;
+        openPopupFromLink(target);
+    } else if(target.parentNode.className=='popup-link'){
+        event.returnValue = false;
+        openPopupFromLink(target.parentNode);
     }
-    function next(){
-        if(event.preventDefault) {
-            event.preventDefault();
-            openPopupFromLink(link);
-        }
-        else{
-            event.returnValue = false;
-            openPopupFromLink(link);
-        }
-    }
+
 });
 
 

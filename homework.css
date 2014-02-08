@@ -29,6 +29,7 @@ li:first-child:first-letter {
 a {
     position: relative;
     text-decoration: none;
+	color: #000;
 }
 a:visited {
     color: #000;

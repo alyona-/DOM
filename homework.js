@@ -4,10 +4,6 @@
  * @private
  */
 
-window.onload  = function (){
-    win = false;
-}
-
 var list = document.querySelector('body');
 list.addEventListener('click', function(event) {
     var target = event.target;
@@ -47,18 +43,35 @@ function openPopupFromLink(link) {
 
 function createPopup(title, message, onOk) {
     parentEl = document.body;
-    (win == false)?winda = document.createElement('div'):winda.style.display = 'block';
-    var  str ='<div class="fon"></div><div class="window"><h4>'+title+'</h4><p>'+message+'</p>' +
-        '<input type="button" value="Да"  value="1" class="buttons" id="button_1">' +
-        '<input type="button" value="Нет" class="buttons" id="button_2"></div>';
+   if(document.getElementsByClassName('winda').length == 0){
+       var winda = document.createElement('div');
+       var  str ='<div class="fon"></div>' +
+           '<div class="window">' +
+           '<h4 class="title"></h4>' +
+           '<p class="text"></p>' +
+           '<input type="button" value="Да"  class="buttons" id="button_1">' +
+           '<input type="button" value="Нет" class="buttons" id="button_2">' +
+           '</div>';
+
+       winda.addEventListener('click', function(event) {
+           var target = event.target.parentNode;
+           if(event.target.value === 'Да') {
+               onOk();
+           }else if(event.target.value === 'Нет'){
+               winda.style.display = 'none';
+           }  });
+
+
+   }else {
+        winda.style.display = 'block';
+   }
+
+    str =str.substr(0, (str.indexOf('<h4 class="title">') +'<h4 class="title">'.length ))+
+             title +
+        str.substr(str.indexOf('</h4>'), str.length);
+
+    str =str.substr(0 , (str.indexOf('<p class="text">') +'<p class="text">'.length)) +
+        message +str.substr(str.indexOf('</p>') ,str.length);
     parentEl.appendChild(winda);
     winda.innerHTML = str;
-    winda.addEventListener('click', function(event) {
-	  var target = event.target.parentNode;
-        if(event.target.value === 'Да') {
-            onOk();
-        }else if(event.target.value === 'Нет'){
-			winda.style.display = 'none';
-        }  });
-        win = true;
 }

@@ -1,9 +1,3 @@
-/**
- * Обработчик клика по ссылке с классом 'popup-link'
- * @param {Event} e событие клика
- * @private
- */
-/*str =new String(); */
 var list = document.querySelector('body');
 list.addEventListener('click', function(event) {
     var target = event.target;
@@ -14,7 +8,6 @@ list.addEventListener('click', function(event) {
     }
     event.returnValue = false;
     openPopupFromLink(target);
-
 });
 
 
@@ -42,37 +35,34 @@ function openPopupFromLink(link) {
  */
 
 function createPopup(title, message, onOk) {
-    parentEl = document.body;
-   if(document.getElementsByClassName('winda').length == 0){
-      var winda = document.createElement('div');
-       var str ='<div class="fon"></div>' +
-           '<div class="window">' +
-           '<h4 class="title"></h4>' +
-           '<p class="text"></p>' +
-           '<input type="button" value="Да"  class="buttons" id="button_1">' +
-           '<input type="button" value="Нет" class="buttons" id="button_2">' +
-           '</div>';
-
-       winda.addEventListener('click', function(event) {
+    var parentEl = document.body;
+    popap = document.getElementsByClassName('popap');
+	if(popap.length!=1){
+	    winda = document.createElement('div');
+		winda.className='popap';
+		parentEl.appendChild(winda);
+		obj ={
+		  str1: '<div class="fon"></div><div class="window"><h4 class="title">',
+		  str2: title,
+		  str3:'</h4><p class="text">',
+		  str4: message,
+		  str5: '</p><input type="button" value="Да"  class="buttons" id="button_1">' +
+              '<input type="button" value="Нет" class="buttons" id="button_2"></div>'
+		 }
+		   winda.innerHTML =(obj.str1+obj.str2+obj.str3+obj.str4+obj.str5);
+		   winda.addEventListener('click', function(event) {
            var target = event.target.parentNode;
            if(event.target.value === 'Да') {
                onOk();
            }else if(event.target.value === 'Нет'){
                winda.style.display = 'none';
+			 winda.innerHTML ='';
            }  });
-
-
-   }else {
-        winda.style.display = 'block';
-   }
-
-    str =str.substr(0, (str.indexOf('<h4 class="title">') +'<h4 class="title">'.length ))+
-             title +
-        str.substr(str.indexOf('</h4>'), str.length);
-
-    str =str.substr(0 , (str.indexOf('<p class="text">') +'<p class="text">'.length)) +
-        message +str.substr(str.indexOf('</p>') ,str.length);
-    parentEl.appendChild(winda);
-    winda.innerHTML = str;
-	
+		
+	}  else {
+         obj.str2=title;
+         obj.str4=message;
+	     winda.style.display ='block';
+	     winda.innerHTML = (obj.str1+obj.str2+obj.str3+obj.str4+obj.str5);
+	}
 }

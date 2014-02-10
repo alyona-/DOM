@@ -49,7 +49,6 @@ function createPopup(title, message, onOk) {
 		  str5: '</p><input type="button" value="Да"  class="buttons" id="button_1">' +
               '<input type="button" value="Нет" class="buttons" id="button_2"></div>'
 		 }
-		   winda.innerHTML =(obj.str1+obj.str2+obj.str3+obj.str4+obj.str5);
 		   winda.addEventListener('click', function(event) {
            var target = event.target.parentNode;
            if(event.target.value === 'Да') {
@@ -63,6 +62,6 @@ function createPopup(title, message, onOk) {
          obj.str2=title;
          obj.str4=message;
 	     winda.style.display ='block';
-	     winda.innerHTML = (obj.str1+obj.str2+obj.str3+obj.str4+obj.str5);
 	}
+	winda.innerHTML = (obj.str1+obj.str2+obj.str3+obj.str4+obj.str5);
 }

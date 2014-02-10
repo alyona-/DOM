@@ -3,15 +3,17 @@
  * @param {Event} e событие клика
  * @private
  */
-str =new String();
+/*str =new String(); */
 var list = document.querySelector('body');
 list.addEventListener('click', function(event) {
-   event.returnValue = false;
-    if(event.target.className == 'popup-link'){
-        openPopupFromLink(event.target);
-    } else if(event.target.parentNode.className=='popup-link'){
-        openPopupFromLink(event.target.parentNode);
+    var target = event.target;
+    if(target.className!=='popup-link'){
+        while(target.className!=='popup-link' || target.tagName == 'BODY'){
+            target = target.parentNode;
+        }
     }
+    event.returnValue = false;
+    openPopupFromLink(target);
 
 });
 
@@ -42,8 +44,8 @@ function openPopupFromLink(link) {
 function createPopup(title, message, onOk) {
     parentEl = document.body;
    if(document.getElementsByClassName('winda').length == 0){
-       winda = document.createElement('div');
-        str ='<div class="fon"></div>' +
+      var winda = document.createElement('div');
+       var str ='<div class="fon"></div>' +
            '<div class="window">' +
            '<h4 class="title"></h4>' +
            '<p class="text"></p>' +

@@ -1,11 +1,28 @@
+obj ={}
+    obj.str1='<div class="fon"></div><div class="window"><h4 class="title">';
+    obj.str2= '';
+    obj.str3='</h4><p class="text">';
+    obj.str4= '';
+    obj.str5= '</p><input type="button" value="Да"  class="buttons" id="button_1">' +
+        '<input type="button" value="Нет" class="buttons" id="button_2"></div>';
+    obj.winda= document.createElement('div');
+    obj.parentEl= document.body;
+    obj.popap= document.getElementsByClassName('popap');
+
+
 var list = document.querySelector('body');
 list.addEventListener('click', function(event) {
     var target = event.target;
-    if(target.className!=='popup-link'){
-        while(target.className!=='popup-link' || target.tagName == 'BODY'){
-            target = target.parentNode;
+    do {
+        var i=false;
+        var classList = target.classList.toString();
+        classList=classList.split(' ');
+        for(var i in classList){
+            if(classList[i] == 'popup-link') {i=true;break;}
         }
-    }
+        if(i==true) break;
+        target=target.parentNode;
+    }while(target.tagName == 'BODY');
     event.returnValue = false;
     openPopupFromLink(target);
 });
@@ -35,33 +52,22 @@ function openPopupFromLink(link) {
  */
 
 function createPopup(title, message, onOk) {
-    var parentEl = document.body;
-    popap = document.getElementsByClassName('popap');
-	if(popap.length!=1){
-	    winda = document.createElement('div');
-		winda.className='popap';
-		parentEl.appendChild(winda);
-		obj ={
-		  str1: '<div class="fon"></div><div class="window"><h4 class="title">',
-		  str2: title,
-		  str3:'</h4><p class="text">',
-		  str4: message,
-		  str5: '</p><input type="button" value="Да"  class="buttons" id="button_1">' +
-              '<input type="button" value="Нет" class="buttons" id="button_2"></div>'
-		 }
-		   winda.addEventListener('click', function(event) {
+	if(obj.popap.length!=1){
+           obj.winda.className='popap';
+           obj.parentEl.appendChild(obj.winda);
+		   obj.winda.addEventListener('click', function(event) {
            var target = event.target.parentNode;
            if(event.target.value === 'Да') {
                onOk();
            }else if(event.target.value === 'Нет'){
-               winda.style.display = 'none';
-			 winda.innerHTML ='';
+               obj.winda.style.display = 'none';
+			 obj.winda.innerHTML ='';
            }  });
 		
 	}  else {
-         obj.str2=title;
-         obj.str4=message;
-	     winda.style.display ='block';
+	     obj.winda.style.display ='block';
 	}
-	winda.innerHTML = (obj.str1+obj.str2+obj.str3+obj.str4+obj.str5);
+    obj.str2=title;
+    obj.str4=message;
+	obj.winda.innerHTML = (obj.str1+obj.str2+obj.str3+obj.str4+obj.str5);
 }

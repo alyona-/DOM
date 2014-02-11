@@ -1,17 +1,16 @@
-obj ={}
-    obj.str1='<div class="fon"></div><div class="window"><h4 class="title">';
-    obj.str2= '';
-    obj.str3='</h4><p class="text">';
-    obj.str4= '';
-    obj.str5= '</p><input type="button" value="Да"  class="buttons" id="button_1">' +
+template ={}
+    template.str1='<div class="fon"></div><div class="window"><h4 class="title">';
+    template.str2= '';
+    template.str3='</h4><p class="text">';
+    template.str4= '';
+    template.str5= '</p><input type="button" value="Да"  class="buttons" id="button_1">' +
         '<input type="button" value="Нет" class="buttons" id="button_2"></div>';
-    obj.winda= document.createElement('div');
-    obj.parentEl= document.body;
-    obj.popap= document.getElementsByClassName('popap');
+    template.winda= document.createElement('div');
+    template.parentEl= document.body;
+    template.popap= document.getElementsByClassName('popap');
 
 
-var list = document.querySelector('body');
-list.addEventListener('click', function(event) {
+document.querySelector('body').addEventListener('click', function(event) {
     var target = event.target;
     do {
         var i=false;
@@ -52,22 +51,22 @@ function openPopupFromLink(link) {
  */
 
 function createPopup(title, message, onOk) {
-	if(obj.popap.length!=1){
-           obj.winda.className='popap';
-           obj.parentEl.appendChild(obj.winda);
-		   obj.winda.addEventListener('click', function(event) {
+	if(template.popap.length!=1){
+           template.winda.className='popap';
+           template.parentEl.appendChild(template.winda);
+		   template.winda.addEventListener('click', function(event) {
            var target = event.target.parentNode;
            if(event.target.value === 'Да') {
                onOk();
            }else if(event.target.value === 'Нет'){
-               obj.winda.style.display = 'none';
-			 obj.winda.innerHTML ='';
+               template.winda.style.display = 'none';
+			 template.winda.innerHTML ='';
            }  });
 		
 	}  else {
-	     obj.winda.style.display ='block';
+	     template.winda.style.display ='block';
 	}
-    obj.str2=title;
-    obj.str4=message;
-	obj.winda.innerHTML = (obj.str1+obj.str2+obj.str3+obj.str4+obj.str5);
+    template.str2=title;
+    template.str4=message;
+	template.winda.innerHTML = (template.str1+template.str2+template.str3+template.str4+template.str5);
 }
